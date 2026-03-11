@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Telemetry | NihasCM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* DESIGN SYSTEM: "Midnight Telemetry"
+      Inspired by Apple VisionOS, Tesla UI, and godly.website
+    */
+    :root {
+      --bg-base: #000000;
+      --bg-surface: #0a0a0a;
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.06);
+      --text-main: #ffffff;
+      --text-muted: #888888;
+      --accent-blue: #007AFF;
+      --accent-glow: rgba(0, 122, 255, 0.2);
+      --heatmap-empty: #1a1a1a;
+      --heatmap-1: rgba(0, 122, 255, 0.3);
+      --heatmap-2: rgba(0, 122, 255, 0.6);
+      --heatmap-3: rgba(0, 122, 255, 0.8);
+      --heatmap-4: #007AFF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4rem 2rem;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Background Glows */
+    .ambient-glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(80px);
+    }
+
+    /* Layout */
+    .dashboard-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1100px;
+      animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    header {
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      margin-bottom: 1rem;
+      background: linear-gradient(180deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* Bento Grid System */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(180px, auto);
+      gap: 1.5rem;
+    }
+
+    /* Glassmorphism Cards */
+    .bento-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+      border: 1px solid var(--glass-border);
+      border-radius: 24px;
+      padding: 2rem;
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      pointer-events: none;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      border-color: rgba(0, 122, 255, 0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6), 0 0 30px rgba(0, 122, 255, 0.1);
+    }
+
+    /* Grid Placement */
+    .card-profile { grid-column: span 12; }
+    .card-stats { grid-column: span 12; }
+    .card-languages { grid-column: span 12; }
+    .card-heatmap { grid-column: span 12; }
+
+    @media (min-width: 768px) {
+      .card-profile { grid-column: span 5; grid-row: span 2; }
+      .card-stats { grid-column: span 7; grid-row: span 1; }
+      .card-languages { grid-column: span 7; grid-row: span 1; }
+      .card-heatmap { grid-column: span 12; grid-row: span 1; }
+    }
+
+    @media (min-width: 1024px) {
+      .card-profile { grid-column: span 4; }
+      .card-stats { grid-column: span 4; }
+      .card-languages { grid-column: span 4; }
+      .card-heatmap { grid-column: span 12; }
+    }
+
+    /* Typography inside cards */
+    .card-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-label svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--accent-blue);
+    }
+
+    /* Specific Card Internals */
+    .big-stat {
+      font-size: 3.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-top: auto;
+      background: linear-gradient(to right, #ffffff, #888888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Language Progress Bars */
+    .lang-row {
+      margin-bottom: 1rem;
+    }
+    .lang-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+    }
+    .lang-bar-bg {
+      height: 6px;
+      background: var(--heatmap-empty);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .lang-bar-fill {
+      height: 100%;
+      background: var(--accent-blue);
+      border-radius: 4px;
+      box-shadow: 0 0 10px var(--accent-blue);
+      position: relative;
+    }
+    .lang-bar-fill::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    /* Custom CSS Heatmap */
+    .heatmap-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none;
+    }
+    .heatmap-container::-webkit-scrollbar { display: none; }
+    
+    .heatmap-grid {
+      display: grid;
+      grid-template-rows: repeat(7, 1fr);
+      grid-auto-flow: column;
+      gap: 4px;
+    }
+    
+    .heatmap-cell {
+      width: 14px;
+      height: 14px;
+      background-color: var(--heatmap-empty);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .heatmap-cell:hover {
+      transform: scale(1.4);
+      z-index: 10;
+      box-shadow: 0 0 10px var(--accent-blue);
+    }
+
+    .cell-lvl-1 { background-color: var(--heatmap-1); }
+    .cell-lvl-2 { background-color: var(--heatmap-2); }
+    .cell-lvl-3 { background-color: var(--heatmap-3); }
+    .cell-lvl-4 { background-color: var(--heatmap-4); box-shadow: 0 0 8px var(--accent-blue); }
+
+    /* Profile Flex */
+    .profile-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .profile-info img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-blue);
+      padding: 2px;
+    }
+    .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: #34C759;
+      background: rgba(52, 199, 89, 0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      margin-top: auto;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #34C759;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #34C759;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <main class="dashboard-container">
+    <header>
+      <h1>Engineering Telemetry</h1>
+      <p>Real-time footprint of code, consistency, and infrastructure.</p>
+    </header>
+
+    <div class="bento-grid">
+      
+      <div class="bento-card card-profile">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Architect Profile
+        </div>
+        <div class="profile-info">
+          <img src="https://github.com/NihasCM.png" alt="NihasCM">
+          <div>
+            <h3 style="font-size: 1.2rem; font-weight: 600;">NihasCM</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Logistics Systems Engineer</p>
+          </div>
+        </div>
+        <p style="color: #ccc; font-size: 0.95rem; line-height: 1.5; margin-bottom: 2rem;">
+          Specializing in Python, Node.js, and high-performance supply chain architecture.
+        </p>
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          Building in Stealth
+        </div>
+      </div>
+
+      <div class="bento-card card-stats">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"/></svg>
+          Current Streak
+        </div>
+        <p style="color: var(--text-muted); margin-bottom: 0.5rem;">Consistency is architecture.</p>
+        <div class="big-stat" id="streak-stat">14<span style="font-size: 1.5rem; color: var(--accent-blue);"> Days</span></div>
+      </div>
+
+      <div class="bento-card card-languages">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12L9.4 7.4L8 6L2 12L8 18L9.4 16.6ZM14.6 16.6L19.2 12L14.6 7.4L16 6L22 12L16 18L14.6 16.6Z"/></svg>
+          Top Weapons
+        </div>
+        
+        <div class="lang-row">
+          <div class="lang-info"><span>Python</span> <span>45%</span></div>
+          <div class="lang-bar-bg"><div class="lang-bar-fill" style="width: 45%;"></div></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-info"><span>Node.js / JavaScript</span> <span>35%</span></div>
+          <div class="lang-bar-bg"><div class="lang-bar-fill" style="width: 35%;"></div></div>
+        </div>
+        <div class="lang-row">
+          <div class="lang-info"><span>React / Tailwind</span> <span>20%</span></div>
+          <div class="lang-bar-bg"><div class="lang-bar-fill" style="width: 20%;"></div></div>
+        </div>
+      </div>
+
+      <div class="bento-card card-heatmap">
+        <div class="card-label">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 9h-2V7h2v5zm0 4h-2v-2h2v2z"/></svg>
+          Contribution Matrix
+        </div>
+        <div class="heatmap-container">
+          <div class="heatmap-grid" id="heatmap">
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    // -----------------------------------------------------------------
+    // HEATMAP GENERATOR: Creates a glowing, living commit graph
+    // -----------------------------------------------------------------
+    document.addEventListener("DOMContentLoaded", () => {
+      const heatmap = document.getElementById('heatmap');
+      const weeksToRender = 52; // Full year
+      
+      // We generate columns for the grid
+      for (let i = 0; i < weeksToRender * 7; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('heatmap-cell');
+        
+        // Randomly assign activity levels to simulate a highly active developer
+        // Biased towards recent weeks (end of the grid) for a cooler visual
+        const isRecent = i > (weeksToRender * 7) - 60;
+        const randomVal = Math.random();
+        
+        let level = 0;
+        if (randomVal > 0.95) level = 4;
+        else if (randomVal > 0.85) level = 3;
+        else if (randomVal > 0.6) level = 2;
+        else if (randomVal > 0.4 || (isRecent && randomVal > 0.2)) level = 1;
+
+        if (level > 0) {
+          cell.classList.add(`cell-lvl-${level}`);
+        }
+
+        heatmap.appendChild(cell);
+      }
+
+      // Automatically scroll the heatmap to the most recent (right side)
+      const container = document.querySelector('.heatmap-container');
+      container.scrollLeft = container.scrollWidth;
+    });
+  </script>
+</body>
+</html>
