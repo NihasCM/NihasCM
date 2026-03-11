@@ -6,8 +6,9 @@
 
 <br>
 
-<img src="https://img.shields.io/badge/Portfolio-nihascm.dev-0a0a0a?style=for-the-badge&logo=google-chrome&logoColor=007AFF" alt="Portfolio" />
-<img src="https://img.shields.io/badge/LinkedIn-Connect-0a0a0a?style=for-the-badge&logo=linkedin&logoColor=007AFF" alt="LinkedIn" />
+[![Portfolio](https://img.shields.io/badge/Portfolio-nihascm.dev-0a0a0a?style=for-the-badge&logo=google-chrome&logoColor=007AFF)](https://nihascm.dev)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0a0a0a?style=for-the-badge&logo=linkedin&logoColor=007AFF)](https://www.linkedin.com/in/NihasCM/)
+[![Dashboard](https://img.shields.io/badge/Live_Dashboard-View_Telemetry-0a0a0a?style=for-the-badge&logo=vercel&logoColor=007AFF)](https://nihascm.dev)
 
 <br><br>
 
