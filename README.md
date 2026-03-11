@@ -9,7 +9,7 @@
 
 <br>
 
-![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=NihasCM&theme=algolia&row=1&column=7&margin-w=15&margin-h=15)
+<img src="https://github-profile-trophy.vercel.app/?username=NihasCM&theme=algolia&row=1&column=7&margin-w=15&margin-h=15" alt="GitHub Trophies" />
 
 </div>
 
