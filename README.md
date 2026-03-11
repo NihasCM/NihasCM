@@ -72,207 +72,22 @@ I leverage a modern and versatile technology stack to bridge the gap between dat
 
 *A snapshot of my code footprint, consistency, and top tools.*
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GitHub Analytics - NihasCM</title>
-  <style>
-    /* DESIGN SYSTEM & VARIABLES 
-      Inspired by Apple / Tesla UI 
-    */
-    :root {
-      --bg-color: #0a0a0a;
-      --card-bg: rgba(255, 255, 255, 0.02);
-      --card-border: rgba(255, 255, 255, 0.06);
-      --text-primary: #ffffff;
-      --text-secondary: #888888;
-      --accent-blue: #007AFF;
-      --glow-blue: rgba(0, 122, 255, 0.15);
-      --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
-    }
+### 📊 GitHub Analytics
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+*A snapshot of my code footprint, consistency, and top tools.*
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-primary);
-      font-family: var(--font-family);
-      display: flex;
-      justify-content: center;
-      padding: 4rem 2rem;
-      -webkit-font-smoothing: antialiased;
-    }
+<div align="center">
 
-    /* SECTION LAYOUT */
-    .github-analytics-section {
-      max-width: 900px;
-      width: 100%;
-      animation: fadeUp 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-      opacity: 0;
-      transform: translateY(20px);
-    }
+| <div align="left">Overview</div> | <div align="left">Top Tools</div> |
+| :---: | :---: |
+| <img src="https://github-readme-stats.vercel.app/api?username=NihasCM&show_icons=true&bg_color=0a0a0a&hide_border=true&title_color=ffffff&text_color=888888&icon_color=007AFF" alt="GitHub Stats" width="400" /> | <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=NihasCM&layout=compact&bg_color=0a0a0a&hide_border=true&title_color=ffffff&text_color=888888" alt="Top Languages" width="350" /> |
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+<br>
 
-    /* HEADER */
-    .section-header {
-      margin-bottom: 3rem;
-    }
+**Commit Consistency**<br>
+<img src="https://streak-stats.demolab.com/?user=NihasCM&background=0a0a0a&hide_border=true&ring=007AFF&fire=007AFF&currStreakNum=ffffff&sideNums=888888&currStreakLabel=888888&sideLabels=888888&dates=888888" alt="GitHub Streak" />
 
-    .section-header h2 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-
-    .section-header p {
-      color: var(--text-secondary);
-      font-size: 1.1rem;
-      font-weight: 400;
-      margin-bottom: 1.5rem;
-    }
-
-    .accent-line {
-      height: 2px;
-      width: 60px;
-      background-color: var(--accent-blue);
-      border-radius: 2px;
-      box-shadow: 0 0 10px var(--glow-blue);
-    }
-
-    /* BENTO GRID */
-    .bento-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    @media (min-width: 768px) {
-      .bento-grid {
-        grid-template-columns: 1.2fr 1fr;
-      }
-      .streak-card-wrapper {
-        grid-column: 1 / -1;
-      }
-    }
-
-    /* GLASSMORPHISM CARDS */
-    .glass-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 1.5rem;
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .glass-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border-radius: 20px;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-      pointer-events: none;
-    }
-
-    .glass-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(0, 122, 255, 0.3);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5), 
-                  0 0 20px var(--glow-blue);
-    }
-
-    /* CARD LABELS */
-    .card-label {
-      width: 100%;
-      text-align: left;
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--text-secondary);
-      margin-bottom: 1rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .card-label svg {
-      width: 16px;
-      height: 16px;
-      fill: var(--accent-blue);
-    }
-
-    /* WIDGET IMAGES */
-    .glass-card img {
-      width: 100%;
-      height: auto;
-      display: block;
-      /* Removes default background rendering from the SVG */
-      mix-blend-mode: screen; 
-    }
-  </style>
-</head>
-<body>
-
-  <section class="github-analytics-section">
-    
-    <div class="section-header">
-      <h2>GitHub Analytics</h2>
-      <p>A snapshot of my code footprint, consistency, and top tools.</p>
-      <div class="accent-line"></div>
-    </div>
-
-    <div class="bento-grid">
-      
-      <div class="glass-card">
-        <div class="card-label">
-          <svg viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
-          Overview
-        </div>
-        <img src="https://github-readme-stats.vercel.app/api?username=NihasCM&show_icons=true&theme=transparent&hide_border=true&title_color=ffffff&text_color=888888&icon_color=007AFF" alt="GitHub Stats" />
-      </div>
-
-      <div class="glass-card">
-        <div class="card-label">
-          <svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12L9.4 7.4L8 6L2 12L8 18L9.4 16.6ZM14.6 16.6L19.2 12L14.6 7.4L16 6L22 12L16 18L14.6 16.6Z"/></svg>
-          Top Tools
-        </div>
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=NihasCM&layout=compact&theme=transparent&hide_border=true&title_color=ffffff&text_color=888888" alt="Top Languages" />
-      </div>
-
-      <div class="glass-card streak-card-wrapper">
-        <div class="card-label">
-          <svg viewBox="0 0 24 24"><path d="M11.73 20.83C15.65 20.83 18.82 17.65 18.82 13.73C18.82 11.29 17.46 8.94 15.35 7.64C14.85 7.33 14.2 7.7 14.36 8.26C14.7 9.42 14.72 10.61 14.34 11.75C14.07 12.55 12.91 12.56 12.62 11.78C11.83 9.61 11.96 7.17 13.06 5.06C13.33 4.54 12.82 3.96 12.31 4.2C8.75 5.86 6.45 9.4 6.45 13.25C6.45 17.43 9.84 20.83 11.73 20.83Z"/></svg>
-          Commit Consistency
-        </div>
-        <img src="https://streak-stats.demolab.com/?user=NihasCM&theme=transparent&hide_border=true&ring=007AFF&fire=007AFF&currStreakNum=ffffff&sideNums=888888&currStreakLabel=888888&sideLabels=888888&dates=888888" alt="GitHub Streak" />
-      </div>
-
-    </div>
-  </section>
-
-</body>
-</html>
+</div>
 
 ---
 
