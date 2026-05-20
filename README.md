@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- HEADER BANNER -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=200&section=header&text=nihas-gogox&fontSize=60&fontColor=ffffff&fontAlignY=38&desc=Routing%20Data.%20Building%20Systems.%20Delivering%20Impact.&descAlignY=58&descSize=16&descColor=6e7681&animation=fadeIn" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=200&section=header&text=nihasCM&fontSize=60&fontColor=ffffff&fontAlignY=38&desc=Routing%20Data.%20Building%20Systems.%20Delivering%20Impact.&descAlignY=58&descSize=16&descColor=6e7681&animation=fadeIn" />
 
 </div>
 
