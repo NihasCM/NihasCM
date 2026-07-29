@@ -1,8 +1,46 @@
+<!--
+  README.md — github.com/NihasCM/NihasCM
+  ─────────────────────────────────────────────────────────────────────────
+  MERGE NOTES — visual design from v1, technical content from v2.
+
+  KEPT from your original: centered header with color, section rhythm,
+  whoami YAML, stats card, contribution snake, clean contact row.
+
+  DROPPED: capsule-render banner + readme-typing-svg. Both are the same
+  class of community-hosted service as streak-stats — same rate limits,
+  same 502s. A broken image in the FIRST 100px is the worst possible
+  failure. The header below uses GitHub-native HTML and cannot break.
+
+  DROPPED: badge wall (21 requests), 5-widget analytics block, streak,
+  language donut, profile-view counter, ASCII diagram.
+
+  ADDED: differentiator line, scannable 5-line project cards, Mermaid.
+
+  EXTERNAL REQUESTS: 2 — github-readme-stats (official) and the snake SVG
+  from your own output branch. Mermaid renders natively, costs nothing.
+
+  ⚠ BLOCKING: scrapping · hotel-harmony · tirulocal-hub are PRIVATE.
+  Those three links 404 for everyone but you. Make them public before
+  publishing, or delete the entries. Everything else is ready to ship.
+
+  Verified against the repos via GitHub API on 2026-07-29. Every claim
+  traces to a file. No metrics appear because none are measured anywhere
+  in the code — do not add any you cannot demonstrate.
+  ─────────────────────────────────────────────────────────────────────────
+-->
+
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=180&section=header&text=nihasCM&fontSize=52&fontColor=ffffff&fontAlignY=35&desc=Routing%20Data.%20Building%20Systems.%20Delivering%20Impact.&descAlignY=55&descSize=15&descColor=8b949e&animation=fadeIn" alt="nihasCM banner" />
+# Nihas
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=17&duration=2800&pause=900&color=007AFF&center=true&vCenter=true&width=620&lines=Full-Stack+Developer+%7C+Logistics+Architect;Real-Time+Tracking+%7C+Python+%26+Node.js;Building+the+invisible+infrastructure+of+trade.)](https://git.io/typing-svg)
+### Backend Engineer — Data Pipelines & Operational Platforms
+
+**I build operational software for logistics, hospitality, and business
+workflows** — data pipelines, automation, and the backends behind them.
+
+`Python` · `TypeScript` · `PostgreSQL` · `asyncio` · `Supabase`
+
+Dubai, UAE · GMT+4 · Open to backend, platform, and data engineering roles
 
 </div>
 
@@ -10,32 +48,29 @@
 
 <table>
 <tr>
-<td width="58%" valign="top">
+<td width="55%" valign="top">
 
 ### `> whoami`
 
 ```yaml
-name:       Nihas
-role:       Full-Stack Developer & Logistics Architect
-location:   Dubai, UAE  [actively seeking]
-focus:      Real-Time Tracking & Supply Chain Platforms
-philosophy: "Great code = a perfect supply chain —
-             invisible, efficient, never breaking down."
-
-currently:
-  - building:   Next-gen logistics & SCM tracking platforms
-  - exploring:  AI-augmented route optimization
-  - targeting:  Dubai's trade & logistics tech ecosystem
-
-status:     🟢 Open to opportunities
+focus:        Data pipelines · operational platforms
+languages:    Python · TypeScript
+backend:      asyncio · Playwright · Supabase/Postgres
+frontend:     React · TanStack Router · Tailwind
+systems:      Concurrent I/O · record dedup
+              idempotent upserts
+building:     Multi-source listing aggregation
+              hospitality & local-commerce ops tooling
+open_to:      Backend · platform · data
+timezone:     GMT+4 (Dubai)
 ```
 
 </td>
-<td width="42%" valign="top" align="center">
+<td width="45%" valign="top" align="center">
 
-<img src="https://ghrs.vercel.app/api?username=NihasCM&show_icons=true&bg_color=0d1117&hide_border=true&title_color=007AFF&text_color=c9d1d9&icon_color=007AFF&rank_icon=github&include_all_commits=true&custom_title=Code+Footprint&cache_seconds=1800" alt="GitHub stats" width="100%" />
-
-<img src="https://streak-stats.demolab.com/?user=NihasCM&background=0D1117&hide_border=true&ring=007AFF&fire=007AFF&currStreakNum=FFFFFF&sideNums=C9D1D9&currStreakLabel=8B949E&sideLabels=8B949E&dates=8B949E&stroke=0D1117&cache_seconds=1800" alt="GitHub streak" width="100%" />
+<!-- Official github-readme-stats. Most repos are private, so include_all_commits
+     keeps this from understating the work. 24h cache. -->
+<img src="https://github-readme-stats.vercel.app/api?username=NihasCM&show_icons=true&hide_border=true&hide_title=true&include_all_commits=true&theme=transparent&icon_color=007AFF&text_color=808080&cache_seconds=86400" alt="GitHub statistics for NihasCM" width="100%" />
 
 </td>
 </tr>
@@ -43,143 +78,131 @@ status:     🟢 Open to opportunities
 
 ---
 
-## ⚡ Technical Arsenal
+## Selected Work
 
-<div align="center">
+<!--
+  Five lines each: what it is → problem → stack → the one technical detail
+  worth clicking for → link. Depth lives in each repo's own README.
+  Where a project is mock-backed, it says so.
+-->
 
-**Backend & Architecture**
+### Multi-Source Listing Aggregation Pipeline
 
-![Node.js](https://img.shields.io/badge/Node.js-0d1117?style=for-the-badge&logo=nodedotjs&logoColor=007AFF)
-![Python](https://img.shields.io/badge/Python-0d1117?style=for-the-badge&logo=python&logoColor=007AFF)
-![REST API](https://img.shields.io/badge/REST_API-0d1117?style=for-the-badge&logo=fastapi&logoColor=007AFF)
-![Supabase](https://img.shields.io/badge/Supabase-0d1117?style=for-the-badge&logo=supabase&logoColor=007AFF)
-![Firebase](https://img.shields.io/badge/Firebase-0d1117?style=for-the-badge&logo=firebase&logoColor=007AFF)
-![System Design](https://img.shields.io/badge/System_Design-0d1117?style=for-the-badge&logo=diagramsdotnet&logoColor=007AFF)
+Merges hotel and service-provider listings from four sources into one
+deduplicated Postgres table.
 
-**Frontend & Mobile**
+- **Problem** — the same property appears on four sites with different names,
+  partial contact data, and inconsistent coordinates
+- **Approach** — scrapers run concurrently under `asyncio.gather`; two-stage
+  dedup (fuzzy name match, then geodesic distance) collapses duplicates;
+  idempotent upsert so re-runs enrich rows instead of resetting them
+- **Stack** — `asyncio` · `Playwright` · `rapidfuzz` · `geopy` · `Supabase`
+- **Repo** — [scrapping](https://github.com/NihasCM/scrapping) *(architecture in `CLAUDE.md`)*
 
-![React](https://img.shields.io/badge/React-0d1117?style=for-the-badge&logo=react&logoColor=007AFF)
-![React Native](https://img.shields.io/badge/React_Native-0d1117?style=for-the-badge&logo=react&logoColor=007AFF)
-![Expo](https://img.shields.io/badge/Expo-0d1117?style=for-the-badge&logo=expo&logoColor=007AFF)
-![Flutter](https://img.shields.io/badge/Flutter-0d1117?style=for-the-badge&logo=flutter&logoColor=007AFF)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-0d1117?style=for-the-badge&logo=tailwindcss&logoColor=007AFF)
-![Streamlit](https://img.shields.io/badge/Streamlit-0d1117?style=for-the-badge&logo=streamlit&logoColor=007AFF)
-![HTML5](https://img.shields.io/badge/HTML5-0d1117?style=for-the-badge&logo=html5&logoColor=007AFF)
-![CSS3](https://img.shields.io/badge/CSS3-0d1117?style=for-the-badge&logo=css&logoColor=007AFF)
+### Hotel Operations Platform
 
-**Databases & DevOps**
+Property management across rooms, guests, payments, reporting, and payment
+reconciliation.
 
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0d1117?style=for-the-badge&logo=postgresql&logoColor=007AFF)
-![MySQL](https://img.shields.io/badge/MySQL-0d1117?style=for-the-badge&logo=mysql&logoColor=007AFF)
-![Git](https://img.shields.io/badge/Git-0d1117?style=for-the-badge&logo=git&logoColor=007AFF)
-![GitHub](https://img.shields.io/badge/GitHub-0d1117?style=for-the-badge&logo=github&logoColor=007AFF)
-![Vercel](https://img.shields.io/badge/Vercel-0d1117?style=for-the-badge&logo=vercel&logoColor=007AFF)
-![Netlify](https://img.shields.io/badge/Netlify-0d1117?style=for-the-badge&logo=netlify&logoColor=007AFF)
-![UiPath](https://img.shields.io/badge/UiPath-0d1117?style=for-the-badge&logo=uipath&logoColor=007AFF)
+- **Problem** — hotel payments arrive over UPI, GPay, PhonePe, and card, and
+  have to be matched against booking records before revenue can be trusted
+- **Approach** — one generic typed `request<T>` wrapper under six domain
+  modules, so HTTP errors normalize at a single boundary; CSV reconciliation
+  resolves system references against bank references
+- **Stack** — `React` · `TypeScript` · `Tailwind` · `Vitest` · `Docker`
+- **Repo** — [hotel-harmony](https://github.com/NihasCM/hotel-harmony) *(API layer runs on mock data; backend is separate)*
 
-</div>
+### Local Commerce Platform
 
----
+Two-sided platform: public directory across six categories, plus an admin
+console for the operators running it.
 
-## 📊 Deep Dive Analytics
-
-<div align="center">
-
-<table>
-<tr>
-<td align="center" width="50%">
-
-<img src="https://ghrs.vercel.app/api/top-langs/?username=NihasCM&layout=donut&bg_color=0d1117&hide_border=true&title_color=007AFF&text_color=c9d1d9&langs_count=8&cache_seconds=1800" alt="Top languages" />
-
-</td>
-<td align="center" width="50%">
-
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=NihasCM&theme=github_dark&utcOffset=4" alt="Productive time" />
-
-</td>
-</tr>
-<tr>
-<td colspan="2" align="center">
-
-<img src="https://github-readme-activity-graph.vercel.app/graph?username=NihasCM&bg_color=0d1117&color=007AFF&line=007AFF&point=ffffff&area=true&hide_border=true&area_color=007AFF" alt="Contribution activity graph" width="100%" />
-
-</td>
-</tr>
-<tr>
-<td align="center" width="50%">
-
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=NihasCM&theme=github_dark" alt="Profile stats card" />
-
-</td>
-<td align="center" width="50%">
-
-<img src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=NihasCM&theme=github_dark" alt="Repos per language" />
-
-</td>
-</tr>
-</table>
-
-</div>
+- **Problem** — a directory is only as good as the tooling behind it; listings,
+  reviews, and content need moderation, not just display
+- **Approach** — parameterized routes per category with six detail components
+  on a shared layout contract; admin side covers listings, reviews, users,
+  categories, CMS, analytics, and an activity log
+- **Stack** — `React` · `TypeScript` · `TanStack Router` · `Tailwind` · `Vitest`
+- **Repo** — [tirulocal-hub](https://github.com/NihasCM/tirulocal-hub) *(43 commits, most-iterated project here)*
 
 ---
 
-## 🐍 Contribution Map
+## Pipeline Architecture
 
-<div align="center">
+<!-- The aggregation pipeline as actually implemented in main.py:run_pipeline.
+     Mermaid renders natively on github.com — no external service, no broken
+     image risk, theme-aware, scrolls cleanly on mobile. -->
 
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NihasCM/NihasCM/output/github-contribution-grid-snake-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/NihasCM/NihasCM/output/github-contribution-grid-snake.svg">
-    <img alt="GitHub contribution snake" src="https://raw.githubusercontent.com/NihasCM/NihasCM/output/github-contribution-grid-snake.svg" width="100%">
-  </picture>
+```mermaid
+flowchart TB
+  subgraph S["Sources"]
+    direction LR
+    GM["Google Maps"]
+    BK["Booking.com"]
+    AG["Agoda"]
+    MMT["MakeMyTrip"]
+  end
 
-</div>
-
----
-
-## 🎯 What I'm Solving
-
-```text
-╔══════════════════════════════════════════════════════════════════╗
-║  THE LOGISTICS PROBLEM SPACE                                     ║
-║                                                                  ║
-║  Shipment A ──[Port]──────────────────────────────► Dest X      ║
-║               ↕                                    ↑            ║
-║  Shipment B ──[Hub]───[Route Optimizer]────────────┘            ║
-║               ↕              ↓                                   ║
-║  Shipment C ──[Warehouse]─[Real-Time Tracker]──► Dashboard      ║
-║                                                                  ║
-║  I engineer the systems that make this invisible and reliable.  ║
-╚══════════════════════════════════════════════════════════════════╝
+  S --> G["asyncio.gather<br/>concurrent · fault-isolated"]
+  G --> F["Fuzzy name merge<br/>rapidfuzz"]
+  F --> D["Geo dedup<br/>geopy"]
+  D --> M["Schema mapping"]
+  M --> U["Batched upsert<br/>conflict: slug"]
+  U --> PG[("Supabase<br/>PostgreSQL")]
+  M --> CSV["CSV export"]
+  G -.-> L["Rotating logs<br/>error screenshots"]
 ```
 
-| Domain | What I Build |
-|--------|-------------|
-| 🚢 **Supply Chain** | End-to-end visibility platforms, ETA prediction, inventory sync |
-| 📍 **Real-Time Tracking** | WebSocket-powered live tracking, geofencing, alerting systems |
-| ⚙️ **Automation** | RPA pipelines with UiPath, data ingestion, workflow orchestration |
-| 📱 **Cross-Platform Apps** | React Native & Flutter apps for field ops and dispatch teams |
-| 🔌 **API Architecture** | RESTful services, webhook integrations, third-party carrier APIs |
+**Three decisions worth asking me about**
+
+- Dedup needs both signals: names differ across sources, coordinates go
+  missing — either one alone produces false merges
+- Upsert keys on a generated slug, because no source ID is shared by all four
+  providers
+- Each source is trusted only for fields it owns — Maps for coordinates and
+  contact, OTAs for price
 
 ---
 
-## 🌐 Connect & Collaborate
+## Stack
+
+<!-- Only technologies present in repository code. HTML/CSS/Git omitted as
+     baseline. Flutter, Firebase, MySQL, Streamlit, UiPath omitted — no repo
+     uses them. Add a row back the day a repo justifies it. -->
+
+| | |
+|---|---|
+| **Languages** | Python · TypeScript · JavaScript · SQL |
+| **Backend** | asyncio · Playwright · Flask · REST clients |
+| **Data** | rapidfuzz · geopy · pandas · openpyxl |
+| **Frontend** | React · TanStack Router · Tailwind CSS · Vite |
+| **Databases** | PostgreSQL · Supabase (PL/pgSQL, RLS) |
+| **Testing** | Vitest |
+| **DevOps** | Docker · GitHub Actions · Netlify · GitHub Pages |
+| **Tools** | Git · ESLint · Prettier · Bun |
+
+---
+
+## Also Public
+
+**KZ IOR/EOR Information System** — Flask app for searching Kazakhstan
+import/export compliance data across four manufacturer datasets. Part-number
+search resolving HS codes, ECCN, and license requirements out of Excel via
+pandas. · [Aamro-Project](https://github.com/NihasCM/Aamro-Project)
+
+---
 
 <div align="center">
 
-[![Portfolio](https://img.shields.io/badge/Portfolio-nihascm.dev-0d1117?style=for-the-badge&logo=vercel&logoColor=007AFF&labelColor=0d1117)](https://github.com/NihasCM/nihascm.dev)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-nihas23-0d1117?style=for-the-badge&logo=linkedin&logoColor=007AFF&labelColor=0d1117)](https://www.linkedin.com/in/nihas23/)
-[![GitHub](https://img.shields.io/badge/GitHub-NihasCM-0d1117?style=for-the-badge&logo=github&logoColor=007AFF&labelColor=0d1117)](https://github.com/NihasCM)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/NihasCM/NihasCM/output/github-contribution-grid-snake-dark.svg">
+  <img alt="Contribution graph for NihasCM" src="https://raw.githubusercontent.com/NihasCM/NihasCM/output/github-contribution-grid-snake.svg" width="100%">
+</picture>
 
-<br>
+<br><br>
 
-> 💬 *Recruiter in Dubai? Fellow builder? Open-source collaborator?*  
-> **Let's architect efficiency together.**
-
-<br>
-
-![Profile Views](https://komarev.com/ghpvc/?username=NihasCM&style=for-the-badge&color=007AFF&label=PROFILE+VIEWS)
+**[LinkedIn](https://www.linkedin.com/in/nihas23/)** ·
+**[Portfolio](https://nihascm.github.io/nihascm.dev/)** ·
+**nihas.n@gogox.com**
 
 </div>
-
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:007AFF,100:0d1117&height=90&section=footer" alt="footer" />
