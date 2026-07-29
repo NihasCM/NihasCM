@@ -1,27 +1,20 @@
 <!--
   README.md — github.com/NihasCM/NihasCM
   ─────────────────────────────────────────────────────────────────────────
-  MERGE NOTES — visual design from v1, technical content from v2.
+  ORDER: proof before biography. Header → Projects → Architecture →
+  Current Focus → whoami → Stack → Activity → Contact.
 
-  KEPT from your original: centered header with color, section rhythm,
-  whoami YAML, stats card, contribution snake, clean contact row.
+  EXTERNAL REQUESTS: 3 — capsule-render (header), github-readme-stats
+  (official), snake SVG (self-hosted on your own output branch).
+  Mermaid renders natively and costs nothing.
 
-  DROPPED: capsule-render banner + readme-typing-svg. Both are the same
-  class of community-hosted service as streak-stats — same rate limits,
-  same 502s. A broken image in the FIRST 100px is the worst possible
-  failure. The header below uses GitHub-native HTML and cannot break.
-
-  DROPPED: badge wall (21 requests), 5-widget analytics block, streak,
-  language donut, profile-view counter, ASCII diagram.
-
-  ADDED: differentiator line, scannable 5-line project cards, Mermaid.
-
-  EXTERNAL REQUESTS: 2 — github-readme-stats (official) and the snake SVG
-  from your own output branch. Mermaid renders natively, costs nothing.
+  Note on the banner: capsule-render is community-hosted, so it can 502.
+  Every image here has real alt text, so a failed load degrades to a
+  readable text line rather than a broken-image icon. That's the mitigation.
 
   ⚠ BLOCKING: scrapping · hotel-harmony · tirulocal-hub are PRIVATE.
   Those three links 404 for everyone but you. Make them public before
-  publishing, or delete the entries. Everything else is ready to ship.
+  publishing, or delete the entries.
 
   Verified against the repos via GitHub API on 2026-07-29. Every claim
   traces to a file. No metrics appear because none are measured anywhere
@@ -31,18 +24,141 @@
 
 <div align="center">
 
-# Nihas
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=170&section=header&text=Nihas&fontSize=48&fontColor=ffffff&fontAlignY=36&desc=Backend%20Engineer%20%E2%80%A2%20Data%20Pipelines%20%E2%80%A2%20Operational%20Platforms&descAlignY=56&descSize=14&descColor=8b949e&animation=fadeIn" alt="Nihas — Backend Engineer, Data Pipelines and Operational Platforms" />
 
-### Backend Engineer — Data Pipelines & Operational Platforms
-
-**I build operational software for logistics, hospitality, and business
-workflows** — data pipelines, automation, and the backends behind them.
+**Building systems that automate operations, aggregate data, and power
+business workflows.**
 
 `Python` · `TypeScript` · `PostgreSQL` · `asyncio` · `Supabase`
 
-Dubai, UAE · GMT+4 · Open to backend, platform, and data engineering roles
+Dubai, UAE · GMT+4 · Open to Backend & Platform Engineering
 
 </div>
+
+---
+
+## Featured Projects
+
+<!--
+  Uniform shape per project: one-line summary → stack → highlights → repo.
+  Same structure every time so the eye lands in the same place. Depth lives
+  in each repo's own README.
+-->
+
+### Multi-Source Listing Aggregation Pipeline
+
+> Concurrent pipeline that aggregates and deduplicates listings from four
+> travel and mapping providers into a single Postgres table.
+
+**Stack**
+Python · asyncio · Playwright · rapidfuzz · geopy · Supabase
+
+**Highlights**
+
+- Concurrent scraping via `asyncio.gather`, fault-isolated per source
+- Two-stage deduplication: fuzzy name matching, then geospatial distance
+- Idempotent upserts — re-runs enrich rows instead of resetting them
+- Per-source field trust: maps for coordinates, OTAs for price
+- Rotating logs with error screenshots on scraper failure
+
+**Repository**
+[NihasCM/scrapping](https://github.com/NihasCM/scrapping) — architecture documented in `CLAUDE.md`
+
+### Hotel Operations Platform
+
+> Property management across rooms, guests, payments, reporting, and
+> multi-method payment reconciliation.
+
+**Stack**
+React · TypeScript · Tailwind CSS · Vitest · Docker
+
+**Highlights**
+
+- Generic typed `request<T>` wrapper over six domain modules
+- HTTP errors normalized at a single boundary
+- CSV reconciliation matching system refs against bank refs
+- Covers UPI, GPay, PhonePe, and card with matched/unmatched/pending states
+
+**Repository**
+[NihasCM/hotel-harmony](https://github.com/NihasCM/hotel-harmony) — API layer runs on mock data; backend is separate
+
+### Local Commerce Platform
+
+> Two-sided platform: public directory across six categories, plus an admin
+> console for the operators running it.
+
+**Stack**
+React · TypeScript · TanStack Router · Tailwind CSS · Vitest
+
+**Highlights**
+
+- Parameterized routes per category, six detail components on one layout contract
+- Admin side: listings, reviews, users, categories, CMS, analytics, activity log
+- Largest codebase here (~509 KB TypeScript), 43 commits
+
+**Repository**
+[NihasCM/tirulocal-hub](https://github.com/NihasCM/tirulocal-hub)
+
+### KZ IOR/EOR Information System
+
+> Flask app for searching Kazakhstan import/export compliance data across
+> four manufacturer datasets.
+
+**Stack**
+Python · Flask · pandas · openpyxl
+
+**Highlights**
+
+- Part-number search resolving HS codes, ECCN, and license requirements
+- Normalizes inconsistent Excel headers across four vendor sources
+
+**Repository**
+[NihasCM/Aamro-Project](https://github.com/NihasCM/Aamro-Project)
+
+---
+
+## Pipeline Architecture
+
+<!-- The aggregation pipeline as implemented in main.py:run_pipeline.
+     Mermaid renders natively on github.com — theme-aware, no external
+     request, scrolls cleanly on mobile. -->
+
+```mermaid
+flowchart TB
+  subgraph S["Sources"]
+    direction LR
+    GM["Google Maps"]
+    BK["Booking.com"]
+    AG["Agoda"]
+    MMT["MakeMyTrip"]
+  end
+
+  S --> G["asyncio.gather<br/>concurrent · fault-isolated"]
+  G --> F["Fuzzy name merge<br/>rapidfuzz"]
+  F --> D["Geo dedup<br/>geopy"]
+  D --> M["Schema mapping"]
+  M --> U["Batched upsert<br/>conflict: slug"]
+  U --> PG[("Supabase<br/>PostgreSQL")]
+  M --> CSV["CSV export"]
+  G -.-> L["Rotating logs<br/>error screenshots"]
+```
+
+**Three decisions worth asking me about**
+
+- Dedup needs both signals: names differ across sources, coordinates go
+  missing — either alone produces false merges
+- Upsert keys on a generated slug, because no source ID is shared by all
+  four providers
+- Each source is trusted only for the fields it owns
+
+---
+
+## Current Focus
+
+- Backend engineering — concurrent I/O, data pipelines
+- PostgreSQL & Supabase — schema design, idempotent writes, RLS
+- Operational platforms — admin tooling, reconciliation, workflow state
+- Automation — multi-source data collection and normalization
 
 ---
 
@@ -68,99 +184,13 @@ timezone:     GMT+4 (Dubai)
 </td>
 <td width="45%" valign="top" align="center">
 
-<!-- Official github-readme-stats. Most repos are private, so include_all_commits
-     keeps this from understating the work. 24h cache. -->
+<!-- Official github-readme-stats. Most repos are private, so
+     include_all_commits keeps this from understating the work. -->
 <img src="https://github-readme-stats.vercel.app/api?username=NihasCM&show_icons=true&hide_border=true&hide_title=true&include_all_commits=true&theme=transparent&icon_color=007AFF&text_color=808080&cache_seconds=86400" alt="GitHub statistics for NihasCM" width="100%" />
 
 </td>
 </tr>
 </table>
-
----
-
-## Selected Work
-
-<!--
-  Five lines each: what it is → problem → stack → the one technical detail
-  worth clicking for → link. Depth lives in each repo's own README.
-  Where a project is mock-backed, it says so.
--->
-
-### Multi-Source Listing Aggregation Pipeline
-
-Merges hotel and service-provider listings from four sources into one
-deduplicated Postgres table.
-
-- **Problem** — the same property appears on four sites with different names,
-  partial contact data, and inconsistent coordinates
-- **Approach** — scrapers run concurrently under `asyncio.gather`; two-stage
-  dedup (fuzzy name match, then geodesic distance) collapses duplicates;
-  idempotent upsert so re-runs enrich rows instead of resetting them
-- **Stack** — `asyncio` · `Playwright` · `rapidfuzz` · `geopy` · `Supabase`
-- **Repo** — [scrapping](https://github.com/NihasCM/scrapping) *(architecture in `CLAUDE.md`)*
-
-### Hotel Operations Platform
-
-Property management across rooms, guests, payments, reporting, and payment
-reconciliation.
-
-- **Problem** — hotel payments arrive over UPI, GPay, PhonePe, and card, and
-  have to be matched against booking records before revenue can be trusted
-- **Approach** — one generic typed `request<T>` wrapper under six domain
-  modules, so HTTP errors normalize at a single boundary; CSV reconciliation
-  resolves system references against bank references
-- **Stack** — `React` · `TypeScript` · `Tailwind` · `Vitest` · `Docker`
-- **Repo** — [hotel-harmony](https://github.com/NihasCM/hotel-harmony) *(API layer runs on mock data; backend is separate)*
-
-### Local Commerce Platform
-
-Two-sided platform: public directory across six categories, plus an admin
-console for the operators running it.
-
-- **Problem** — a directory is only as good as the tooling behind it; listings,
-  reviews, and content need moderation, not just display
-- **Approach** — parameterized routes per category with six detail components
-  on a shared layout contract; admin side covers listings, reviews, users,
-  categories, CMS, analytics, and an activity log
-- **Stack** — `React` · `TypeScript` · `TanStack Router` · `Tailwind` · `Vitest`
-- **Repo** — [tirulocal-hub](https://github.com/NihasCM/tirulocal-hub) *(43 commits, most-iterated project here)*
-
----
-
-## Pipeline Architecture
-
-<!-- The aggregation pipeline as actually implemented in main.py:run_pipeline.
-     Mermaid renders natively on github.com — no external service, no broken
-     image risk, theme-aware, scrolls cleanly on mobile. -->
-
-```mermaid
-flowchart TB
-  subgraph S["Sources"]
-    direction LR
-    GM["Google Maps"]
-    BK["Booking.com"]
-    AG["Agoda"]
-    MMT["MakeMyTrip"]
-  end
-
-  S --> G["asyncio.gather<br/>concurrent · fault-isolated"]
-  G --> F["Fuzzy name merge<br/>rapidfuzz"]
-  F --> D["Geo dedup<br/>geopy"]
-  D --> M["Schema mapping"]
-  M --> U["Batched upsert<br/>conflict: slug"]
-  U --> PG[("Supabase<br/>PostgreSQL")]
-  M --> CSV["CSV export"]
-  G -.-> L["Rotating logs<br/>error screenshots"]
-```
-
-**Three decisions worth asking me about**
-
-- Dedup needs both signals: names differ across sources, coordinates go
-  missing — either one alone produces false merges
-- Upsert keys on a generated slug, because no source ID is shared by all four
-  providers
-- Each source is trusted only for fields it owns — Maps for coordinates and
-  contact, OTAs for price
 
 ---
 
@@ -180,15 +210,6 @@ flowchart TB
 | **Testing** | Vitest |
 | **DevOps** | Docker · GitHub Actions · Netlify · GitHub Pages |
 | **Tools** | Git · ESLint · Prettier · Bun |
-
----
-
-## Also Public
-
-**KZ IOR/EOR Information System** — Flask app for searching Kazakhstan
-import/export compliance data across four manufacturer datasets. Part-number
-search resolving HS codes, ECCN, and license requirements out of Excel via
-pandas. · [Aamro-Project](https://github.com/NihasCM/Aamro-Project)
 
 ---
 
