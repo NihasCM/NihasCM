@@ -16,9 +16,9 @@
   HTML/Python, so the default view badly understates the TS/React work
   that lives in private repos.
 
-  ⚠ ALL four featured repos are PRIVATE (scrapping · hotel-harmony ·
-  tirulocal-hub · Aamro-Project). Every card intentionally carries NO repo
-  link. Add a link only when that repo goes public.
+  ⚠ hotel-harmony is PUBLIC (repo + live demo linked). scrapping ·
+  tirulocal-hub · Aamro-Project are PRIVATE — their cards intentionally
+  carry NO repo link. Add a link only when that repo goes public.
 
   External requests: typing-svg, capsule-render (header + footer), stats
   mirror ×2, activity-graph, streak-stats, komarev counter. Every <img>
@@ -205,7 +205,7 @@ payment reconciliation.
 - CSV reconciliation matching system refs to bank refs
 - UPI, GPay, PhonePe, card — matched/unmatched/pending
 
-**Status** · `Private repo`
+**Status** · `Public` — [Repository](https://github.com/NihasCM/hotel-harmony) · [Live demo](https://hotel-harmony.netlify.app)
 
 </td>
 </tr>
