@@ -1,0 +1,6 @@
+# Personal documents — keep out of the public profile repo
+Nihas_Resume.docx
+*.docx
+
+# macOS
+.DS_Store
