@@ -10,6 +10,11 @@
   EXTERNAL REQUESTS: 3 — capsule-render (header), github-readme-stats
   (official), snake SVG (self-hosted on your own output branch).
 
+  ⚠ NEVER put an ampersand in the banner's desc= param, even encoded as
+  %26. capsule-render decodes it to a bare "&" and emits it unescaped into
+  the SVG, which is invalid XML — the image dies at that character and the
+  profile falls back to alt text. Use "+" or "and" instead.
+
   Note on the banner: capsule-render is community-hosted, so it can 502.
   Every image here has real alt text, so a failed load degrades to a
   readable text line rather than a broken-image icon. That's the mitigation.
@@ -26,7 +31,7 @@
 
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=170&section=header&text=Nihas&fontSize=48&fontColor=ffffff&fontAlignY=36&desc=Full-Stack%20Developer%20%E2%80%A2%20Supply%20Chain%20Tech%20%E2%80%A2%20RPA%20%26%20AI%2FML&descAlignY=56&descSize=14&descColor=8b949e&animation=fadeIn" alt="Nihas — Full-Stack Developer, Supply Chain Tech, RPA and AI/ML" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=170&section=header&text=Nihas&fontSize=48&fontColor=ffffff&fontAlignY=36&desc=Full-Stack%20Developer%20%E2%80%A2%20Supply%20Chain%20Tech%20%E2%80%A2%20RPA%20%2B%20AI%2FML&descAlignY=56&descSize=14&descColor=8b949e&animation=fadeIn" alt="Nihas — Full-Stack Developer, Supply Chain Tech, RPA and AI/ML" />
 
 **Building internal tools and supply chain systems that automate operations,
 aggregate data, and power business workflows.**
