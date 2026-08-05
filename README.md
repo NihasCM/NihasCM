@@ -206,9 +206,14 @@ timezone:     GMT+5:30 (Chennai)
 </td>
 <td width="45%" valign="top" align="center">
 
-<!-- Official github-readme-stats. Most repos are private, so
-     include_all_commits keeps this from understating the work. -->
-<img src="https://github-readme-stats.vercel.app/api?username=NihasCM&show_icons=true&hide_border=true&hide_title=true&include_all_commits=true&theme=transparent&icon_color=007AFF&text_color=808080&cache_seconds=86400" alt="GitHub statistics for NihasCM" width="100%" />
+<!-- github-readme-stats. Most repos are private, so include_all_commits
+     keeps this from understating the work.
+
+     Points at the sigma-five community mirror, NOT the canonical
+     github-readme-stats.vercel.app — that instance returns 503
+     DEPLOYMENT_PAUSED (its free-tier quota gets exhausted). If this mirror
+     also goes down, check whether the canonical host has recovered. -->
+<img src="https://github-readme-stats-sigma-five.vercel.app/api?username=NihasCM&show_icons=true&hide_border=true&hide_title=true&include_all_commits=true&theme=transparent&icon_color=007AFF&text_color=808080&cache_seconds=86400" alt="GitHub statistics for NihasCM" width="100%" />
 
 </td>
 </tr>
