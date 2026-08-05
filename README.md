@@ -1,12 +1,14 @@
 <!--
   README.md — github.com/NihasCM/NihasCM
   ─────────────────────────────────────────────────────────────────────────
-  ORDER: proof before biography. Header → Projects → Architecture →
-  Current Focus → whoami → Stack → Activity → Contact.
+  ORDER: proof before biography. Header → Experience → Projects →
+  Architecture → Current Focus → whoami → Stack → Activity → Contact.
+
+  Identity fields (location, title, email, LinkedIn, stack) are kept in
+  sync with Nihas_Resume.docx — the resume is the source of truth.
 
   EXTERNAL REQUESTS: 3 — capsule-render (header), github-readme-stats
   (official), snake SVG (self-hosted on your own output branch).
-  Mermaid renders natively and costs nothing.
 
   Note on the banner: capsule-render is community-hosted, so it can 502.
   Every image here has real alt text, so a failed load degrades to a
@@ -24,16 +26,37 @@
 
 <div align="center">
 
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=170&section=header&text=Nihas&fontSize=48&fontColor=ffffff&fontAlignY=36&desc=Backend%20Engineer%20%E2%80%A2%20Data%20Pipelines%20%E2%80%A2%20Operational%20Platforms&descAlignY=56&descSize=14&descColor=8b949e&animation=fadeIn" alt="Nihas — Backend Engineer, Data Pipelines and Operational Platforms" />
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:0a0a0a,50:0d1117,100:007AFF&height=170&section=header&text=Nihas&fontSize=48&fontColor=ffffff&fontAlignY=36&desc=Full-Stack%20Developer%20%E2%80%A2%20Supply%20Chain%20Tech%20%E2%80%A2%20RPA%20%26%20AI%2FML&descAlignY=56&descSize=14&descColor=8b949e&animation=fadeIn" alt="Nihas — Full-Stack Developer, Supply Chain Tech, RPA and AI/ML" />
 
-**Building systems that automate operations, aggregate data, and power
-business workflows.**
+**Building internal tools and supply chain systems that automate operations,
+aggregate data, and power business workflows.**
 
-`Python` · `TypeScript` · `PostgreSQL` · `asyncio` · `Supabase`
+`Python` · `TypeScript` · `React` · `Node.js` · `MySQL`
 
-Dubai, UAE · GMT+4 · Open to Backend & Platform Engineering
+Chennai, India · GMT+5:30 · Open to Software Engineering & Supply Chain Tech
 
 </div>
+
+---
+
+## Experience
+
+**Sourcing Executive — Full-Stack Developer, Internal Tools** · GOGOX India · Chennai
+*May 2025 – Present*
+
+- Built and maintained in-house Fleet Management (FMS), HRM, and logistics
+  operations platforms
+- React · TypeScript · Node.js · Express · MySQL · Firebase · BigQuery
+- Browser automation for data processing and advance payment validation
+- Role-based dashboards and reporting for faster operational decisions
+
+**Software Developer Intern** · AAMRO Freight · Chennai
+*Jan 2025 – Mar 2025*
+
+- Shipped a supply chain app covering orders, inventory, and automated
+  low-stock alerts — removed 60% of manual stock checks
+- Node/Express backend over MySQL, 10+ REST endpoints, sub-200ms responses
+- Cut order placement from 7 steps to 4
 
 ---
 
@@ -115,33 +138,25 @@ Python · Flask · pandas · openpyxl
 **Repository**
 [NihasCM/Aamro-Project](https://github.com/NihasCM/Aamro-Project)
 
+### Driver Drowsiness Detection System
+
+> Real-time fatigue monitoring that flags drowsiness from eye-blink frequency
+> and head-tilt patterns.
+
+**Stack**
+Python · OpenCV · Computer Vision · Machine Learning
+
+**Highlights**
+
+- Facial landmark recognition flagging fatigue events within 1–2 seconds
+- 90%+ detection accuracy across varied lighting in a simulated environment
+- Audio-visual alert triggers on fatigue detection
+
+*Academic project, Jan – Apr 2023*
+
 ---
 
 ## Pipeline Architecture
-
-<!-- The aggregation pipeline as implemented in main.py:run_pipeline.
-     Mermaid renders natively on github.com — theme-aware, no external
-     request, scrolls cleanly on mobile. -->
-
-```mermaid
-flowchart TB
-  subgraph S["Sources"]
-    direction LR
-    GM["Google Maps"]
-    BK["Booking.com"]
-    AG["Agoda"]
-    MMT["MakeMyTrip"]
-  end
-
-  S --> G["asyncio.gather<br/>concurrent · fault-isolated"]
-  G --> F["Fuzzy name merge<br/>rapidfuzz"]
-  F --> D["Geo dedup<br/>geopy"]
-  D --> M["Schema mapping"]
-  M --> U["Batched upsert<br/>conflict: slug"]
-  U --> PG[("Supabase<br/>PostgreSQL")]
-  M --> CSV["CSV export"]
-  G -.-> L["Rotating logs<br/>error screenshots"]
-```
 
 **Three decisions worth asking me about**
 
@@ -155,10 +170,11 @@ flowchart TB
 
 ## Current Focus
 
-- Backend engineering — concurrent I/O, data pipelines
-- PostgreSQL & Supabase — schema design, idempotent writes, RLS
-- Operational platforms — admin tooling, reconciliation, workflow state
-- Automation — multi-source data collection and normalization
+- Full-stack development — React/TypeScript frontends over Node.js APIs
+- Supply chain technology — fleet management, freight, inventory systems
+- Databases — MySQL and PostgreSQL schema design, query optimization
+- Automation & RPA — browser automation, multi-source data collection
+- AI/ML — computer vision and applied ML fundamentals
 
 ---
 
@@ -169,16 +185,17 @@ flowchart TB
 ### `> whoami`
 
 ```yaml
-focus:        Data pipelines · operational platforms
-languages:    Python · TypeScript
-backend:      asyncio · Playwright · Supabase/Postgres
+focus:        Full-stack dev · supply chain tech
+languages:    Python · TypeScript · JavaScript
+backend:      Node.js · Express · Flask · asyncio
 frontend:     React · TanStack Router · Tailwind
-systems:      Concurrent I/O · record dedup
-              idempotent upserts
-building:     Multi-source listing aggregation
-              hospitality & local-commerce ops tooling
-open_to:      Backend · platform · data
-timezone:     GMT+4 (Dubai)
+databases:    MySQL · PostgreSQL · Supabase · BigQuery
+emerging:     RPA · OpenCV · Machine Learning
+building:     Fleet management & internal ops tooling
+              multi-source data aggregation
+education:    MCA, SRM Institute (CGPA 8.6)
+open_to:      Software engineering · supply chain tech
+timezone:     GMT+5:30 (Chennai)
 ```
 
 </td>
@@ -196,20 +213,21 @@ timezone:     GMT+4 (Dubai)
 
 ## Stack
 
-<!-- Only technologies present in repository code. HTML/CSS/Git omitted as
-     baseline. Flutter, Firebase, MySQL, Streamlit, UiPath omitted — no repo
-     uses them. Add a row back the day a repo justifies it. -->
+<!-- Technologies used either in a public repo here or in production work at
+     GOGOX/AAMRO. Flutter, Streamlit, UiPath omitted — nothing uses them.
+     HTML/CSS omitted as baseline. -->
 
 | | |
 |---|---|
 | **Languages** | Python · TypeScript · JavaScript · SQL |
-| **Backend** | asyncio · Playwright · Flask · REST clients |
-| **Data** | rapidfuzz · geopy · pandas · openpyxl |
+| **Backend** | Node.js · Express · Flask · asyncio · Playwright |
+| **Data** | pandas · openpyxl · rapidfuzz · geopy · BigQuery |
 | **Frontend** | React · TanStack Router · Tailwind CSS · Vite |
-| **Databases** | PostgreSQL · Supabase (PL/pgSQL, RLS) |
+| **Databases** | MySQL · PostgreSQL · Supabase · Firebase |
+| **Emerging** | RPA · OpenCV · Machine Learning · AWS AI/ML |
 | **Testing** | Vitest |
 | **DevOps** | Docker · GitHub Actions · Netlify · GitHub Pages |
-| **Tools** | Git · ESLint · Prettier · Bun |
+| **Tools** | Git · ESLint · Prettier · Bun · Android Studio |
 
 ---
 
@@ -224,6 +242,6 @@ timezone:     GMT+4 (Dubai)
 
 **[LinkedIn](https://www.linkedin.com/in/nihas23/)** ·
 **[Portfolio](https://nihascm.github.io/nihascm.dev/)** ·
-**nihas.n@gogox.com**
+**nihasnooruliyen@gmail.com**
 
 </div>
