@@ -16,9 +16,9 @@
   HTML/Python, so the default view badly understates the TS/React work
   that lives in private repos.
 
-  ⚠ scrapping · hotel-harmony · tirulocal-hub are PRIVATE (confirmed 404
-  via API). Their cards intentionally carry NO repo link. Add links only
-  when the repos go public.
+  ⚠ ALL four featured repos are PRIVATE (scrapping · hotel-harmony ·
+  tirulocal-hub · Aamro-Project). Every card intentionally carries NO repo
+  link. Add a link only when that repo goes public.
 
   External requests: typing-svg, capsule-render (header + footer), stats
   mirror ×2, activity-graph, streak-stats, komarev counter. Every <img>
@@ -238,7 +238,7 @@ four manufacturer datasets.
 - Part-number search resolving HS codes, ECCN, licensing
 - Normalizes inconsistent Excel headers across vendors
 
-**Status** · `Public` — [Repository](https://github.com/NihasCM/Aamro-Project)
+**Status** · `Private repo`
 
 </td>
 </tr>
